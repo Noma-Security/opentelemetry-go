@@ -3,15 +3,16 @@ package otelslog
 import (
 	"bytes"
 	"context"
+	"log/slog"
+	"os"
+	"testing"
+
 	"github.com/agoda-com/opentelemetry-logs-go/exporters/stdout/stdoutlogs"
 	"github.com/stretchr/testify/assert"
-	"log/slog"
 
 	sdk "github.com/agoda-com/opentelemetry-logs-go/sdk/logs"
 	"go.opentelemetry.io/otel/sdk/resource"
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
-	"os"
-	"testing"
 )
 
 // configure common attributes for all logs
@@ -26,7 +27,8 @@ func newResource() *resource.Resource {
 }
 
 func doSomething(ctx context.Context) {
-	slog.InfoContext(ctx, "hello slog", slog.String("myKey", "myValue"))
+	slog.InfoContext(ctx, "hello slog", slog.String("myKey", "myValue"),
+		slog.Group("myGroup", slog.String("groupKey", "groupValue")))
 }
 
 func TestNewOtelHandler(t *testing.T) {
@@ -42,7 +44,7 @@ func TestNewOtelHandler(t *testing.T) {
 	)
 
 	handler := NewOtelHandler(loggerProvider, &HandlerOptions{
-		level: slog.LevelInfo,
+		Level: slog.LevelInfo,
 	}).
 		WithAttrs([]slog.Attr{slog.String("first", "value1")}).
 		WithGroup("group1").
@@ -58,5 +60,6 @@ func TestNewOtelHandler(t *testing.T) {
 
 	actual := buf.String()
 
-	assert.Contains(t, actual, "INFO hello slog [scopeInfo: github.com/agoda-com/otelslog:0.0.1] {host.name=CLX4NV72V6, service.name=otelslog-example, service.version=1.0.0, first=value1, group1.second=value2, group1.group2.myKey=myValue}")
+	assert.Contains(t, actual, "INFO hello slog [scopeInfo: github.com/agoda-com/otelslog:0.0.1] {host.name=")
+	assert.Contains(t, actual, "service.name=otelslog-example, service.version=1.0.0, first=value1, group1.second=value2, group1.group2.myKey=myValue, group1.group2.myGroup.groupKey=groupValue}")
 }
