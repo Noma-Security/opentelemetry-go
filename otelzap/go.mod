@@ -4,7 +4,7 @@ go 1.21
 
 toolchain go1.21.3
 
-replace github.com/agoda-com/opentelemetry-logs-go => github.com/Noma-Security/opentelemetry-logs-go v1.0.0
+replace github.com/agoda-com/opentelemetry-logs-go => github.com/Noma-Security/opentelemetry-logs-go v1.0.1
 
 require (
 	github.com/agoda-com/opentelemetry-logs-go v0.3.0

@@ -1,3 +1,5 @@
+github.com/Noma-Security/opentelemetry-logs-go v1.0.1 h1:rkd6cPYvH05UWwIfMlAiHe6CIvJbUTXofAGOP/8MtX8=
+github.com/Noma-Security/opentelemetry-logs-go v1.0.1/go.mod h1:35B5ypjX5pkVCPJR01i6owJSYWe8cnbWLpEyHgAGD/E=
 github.com/cenkalti/backoff/v4 v4.2.1/go.mod h1:Y3VNntkOUPxTVeUxJ/G5vcM//AlwfmyYozVcomhLiZE=
 github.com/go-logr/logr v1.2.4/go.mod h1:jdQByPbusPIv2/zmleS9BjJVeZ6kBagPoEUsqbVz/1A=
 github.com/golang/protobuf v1.5.3/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiuN0vRsmY=
